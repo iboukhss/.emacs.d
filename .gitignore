@@ -1,6 +1,8 @@
 auto-save-list/
 elpa/
 custom.el
+places
 *.old
 *~
+*#
 session.*

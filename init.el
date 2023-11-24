@@ -21,20 +21,59 @@
 (eval-when-compile
   (require 'use-package))
 
+;; General settings
+(delete-selection-mode 1)
+(save-place-mode 1)
+(auto-revert-mode 1)
+
+(setq use-dialog-box nil)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Fonts
+(set-face-attribute 'default nil :height 110)
+
 ;; Theme
 (use-package modus-themes
   :ensure t
   :config (load-theme 'modus-vivendi t))
 
+;; Completion
+(use-package vertico
+  :ensure t
+  :init (vertico-mode))
+
+(use-package corfu
+  :ensure t
+  :init (global-corfu-mode)
+  :custom (corfu-auto t))
+
+(use-package marginalia
+  :ensure t
+  :init (marginalia-mode))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 ;; Programming
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (column-number-mode 1)
 
+;; LSP
+(use-package eglot
+  :ensure t)
+
 ;; C
+;; Good settings for norminette
+(setq-default tab-width 4)
+(defvaralias 'c-basic-offset 'tab-width)
+(setq c-default-style "linux")
+(setq backward-delete-char-untabify-method 'hungry)
+
 (defun ism/setup-c ()
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-  (setq-default c-basic-offset 4
-		tab-width 4
-		indent-tabs-mode t))
+  (eglot-ensure))
 
 (add-hook 'c-mode-hook 'ism/setup-c)
