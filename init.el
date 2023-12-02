@@ -66,6 +66,7 @@
 ;;; PROGRAMMING
 
 ;; General editing
+(global-set-key (kbd "C-c w") 'whitespace-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (column-number-mode 1)
 (electric-pair-mode 1)
@@ -78,7 +79,7 @@
 
 ;; C at 42
 (defun ism/setup-c ()
-  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+  (local-set-key (kbd "<TAB>") 'tab-to-tab-stop)
   (eglot-ensure))
 
 (add-hook 'c-mode-hook 'ism/setup-c)
