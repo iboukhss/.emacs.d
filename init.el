@@ -1,3 +1,5 @@
+;;; LOADING
+
 ;; Custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (and custom-file
@@ -21,8 +23,11 @@
 (eval-when-compile
   (require 'use-package))
 
-;; General settings
-(delete-selection-mode 1)
+
+;;; GENERAL SETTINGS
+
+;; Sensible defaults
+(recentf-mode 1)
 (save-place-mode 1)
 (auto-revert-mode 1)
 
@@ -30,7 +35,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Fonts
-(set-face-attribute 'default nil :height 110)
+(set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
 
 ;; Theme
 (use-package modus-themes
@@ -57,23 +62,27 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-;; Programming
+
+;;; PROGRAMMING
+
+;; General editing
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (column-number-mode 1)
+(electric-pair-mode 1)
+(delete-selection-mode 1)
 
-;; LSP
-(use-package eglot
-  :ensure t)
-
-;; C
-;; Good settings for norminette
+;; Tabs
 (setq-default tab-width 4)
 (defvaralias 'c-basic-offset 'tab-width)
-(setq c-default-style "linux")
 (setq backward-delete-char-untabify-method 'hungry)
 
+;; C at 42
 (defun ism/setup-c ()
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
   (eglot-ensure))
 
 (add-hook 'c-mode-hook 'ism/setup-c)
+
+;; LSP
+(use-package eglot
+  :ensure t)
