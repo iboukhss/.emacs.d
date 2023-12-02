@@ -77,13 +77,13 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (setq backward-delete-char-untabify-method 'hungry)
 
-;; C at 42
-(defun ism/setup-c ()
-  (local-set-key (kbd "<TAB>") 'tab-to-tab-stop)
-  (eglot-ensure))
-
-(add-hook 'c-mode-hook 'ism/setup-c)
-
 ;; LSP
 (use-package eglot
   :ensure t)
+
+;; C at 42
+(defun ism/setup-c ()
+  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+  (eglot-ensure))
+
+(add-hook 'c-mode-hook 'ism/setup-c)

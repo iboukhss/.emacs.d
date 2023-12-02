@@ -1,6 +1,7 @@
 auto-save-list/
 eln-cache/
 elpa/
+tree-sitter/
 custom.el
 places
 recentf
