@@ -31,16 +31,21 @@
 (save-place-mode 1)
 (auto-revert-mode 1)
 
+(delete-selection-mode 1)
+(column-number-mode 1)
+(electric-pair-mode 1)
+
 (setq use-dialog-box nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Fonts
-(set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
+;; (set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
 
 ;; Theme
+;; (load-theme 'modus-operandi-tinted)
+
 (use-package modus-themes
-  :ensure t
-  :config (load-theme 'modus-vivendi t))
+  :ensure t)
 
 ;; Completion
 (use-package vertico
@@ -66,16 +71,11 @@
 ;;; PROGRAMMING
 
 ;; General editing
-(global-set-key (kbd "C-c w") 'whitespace-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(column-number-mode 1)
-(electric-pair-mode 1)
-(delete-selection-mode 1)
+(setq-default display-line-numbers-width 3)
 
-;; Tabs
-(setq-default tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
 (setq backward-delete-char-untabify-method 'hungry)
+(global-set-key (kbd "C-c w") 'whitespace-mode)
 
 ;; LSP
 (use-package eglot
@@ -83,7 +83,9 @@
 
 ;; C at 42
 (defun ism/setup-c ()
-  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-  (eglot-ensure))
+  (setq-local tab-width 4)
+  (setq c-basic-offset 4)
+  (setq c-default-style "linux")
+  (local-set-key (kbd "TAB") 'tab-to-tab-stop))
 
 (add-hook 'c-mode-hook 'ism/setup-c)
