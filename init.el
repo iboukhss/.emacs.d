@@ -29,7 +29,7 @@
 ;; Sensible defaults
 (recentf-mode 1)
 (save-place-mode 1)
-(auto-revert-mode 1)
+(global-auto-revert-mode 1)
 
 (delete-selection-mode 1)
 (column-number-mode 1)
@@ -39,10 +39,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Fonts
-;; (set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
+(set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
 
 ;; Theme
-;; (load-theme 'modus-operandi-tinted)
+(load-theme 'modus-vivendi t)
 
 (use-package modus-themes
   :ensure t)
@@ -86,6 +86,7 @@
   (setq-local tab-width 4)
   (setq c-basic-offset 4)
   (setq c-default-style "linux")
-  (local-set-key (kbd "TAB") 'tab-to-tab-stop))
+  (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+  (eglot-ensure))
 
 (add-hook 'c-mode-hook 'ism/setup-c)
