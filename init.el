@@ -15,10 +15,14 @@
 (load "comments.el")
 (load "header.el")
 
-;; Package
+;; Package management
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (eval-when-compile
   (require 'use-package))
@@ -42,10 +46,9 @@
 (set-face-attribute 'default nil :font "JetBrains Mono NL" :height 110)
 
 ;; Theme
-(load-theme 'modus-vivendi t)
-
 (use-package modus-themes
-  :ensure t)
+  :ensure t
+  :config (load-theme 'modus-vivendi t))
 
 ;; Completion
 (use-package vertico
@@ -82,10 +85,11 @@
   :ensure t)
 
 ;; C at 42
+(setq c-basic-offset 4)
+(setq c-default-style "linux")
+
 (defun ism/setup-c ()
   (setq-local tab-width 4)
-  (setq c-basic-offset 4)
-  (setq c-default-style "linux")
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
   (eglot-ensure))
 
